@@ -25,6 +25,9 @@ Some of the questions that I am looking to also answer as part of the exploratio
 1. Are there any interesting patterns on the year movies are published and how much they gross?
 1. Do viwer scores vs gross income work better as an indicator of moview preferences?
 
+
 ## Phase II Ideas:
 
 The dataset has amazing information that shows how different demographics (age, gender) scored a movie. It would be great to be able to create a more indepth analysis using this data set, particularly to try to predict the value a movie will gross based on the target audience.
+
+Another option is to create a GUI app where users can actually input a movie tittle, and then recommendations are offered. First phase will likely only be for movie titles, but maybe in the future it is possible to add the option to recommend movies based on movie directors or actors. 

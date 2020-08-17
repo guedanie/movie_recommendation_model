@@ -10,7 +10,7 @@ Using a data set found on Kaggle, I will be looking at movies published in the U
 
 1. Explore the data, and see if any interesting patterns arise
 2. Create a clustering modeling that can help us identify movies that are similar to each other based on:
-    1. Gendre
+    1. Genre
     1. Description
     1. Avg score by viewers
     1. Director

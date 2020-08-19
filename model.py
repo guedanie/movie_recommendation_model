@@ -43,7 +43,7 @@ def clean(text: str, ADDITIONAL_STOPWORDS = ['r', 'u', '2', 'ltgt']) -> list:
 def run_bag_of_words(df, target_variable):
     # Bag of words
     cv = CountVectorizer()
-    X = cv.fit_transform(df.readme_contents.apply(clean).apply(' '.join)) 
+    X = cv.fit_transform(df.description.apply(clean).apply(' '.join)) 
     y = df[target_variable]
     return X, y
 

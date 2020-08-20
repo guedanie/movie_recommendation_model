@@ -25,6 +25,13 @@ Some of the questions that I am looking to also answer as part of the exploratio
 1. Are there any interesting patterns on the year movies are published and how much they gross?
 1. Do viwer scores vs gross income work better as an indicator of moview preferences?
 
+## Model:
+
+I did two iterations of the models:
+
+1. Using numerical features for clustering 
+1. Using NLP techniques to create clusters based on descriptions and titles
+
 
 ## Phase II Ideas:
 

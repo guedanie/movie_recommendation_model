@@ -92,21 +92,22 @@ def read_df(movie_title):
 
 
 
-# # app loop
+## app loop
 
-active = True
+
 
 print("")
 print("Welcome to the movie recommendation app!")
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
+active = True
 while active:
     movie_title = what_is_name_movie()
     movie_recommendation = read_df(movie_title)
 
     if len(movie_recommendation) != 50:
         print("")
-        print(f"These are the movie we found that are similar to {movie_title}: ")
+        print(f"These are the movies we found that are similar to {movie_title}: ")
         print(movie_recommendation.to_string(index=False))
 
     else:
@@ -121,5 +122,6 @@ while active:
     if another_round != "y":
         print("----------------")
         print("Thank you for using our movie recommender - come back any time!")
+        print("")
         active = False
     

@@ -30,7 +30,8 @@ Some of the questions that I am looking to also answer as part of the exploratio
 I did two iterations of the models:
 
 1. Using numerical features for clustering 
-1. Using NLP techniques to create clusters based on descriptions and titles
+1. Using NLP techniques to create clusters based on descriptions and titles.
+    * Three models were created under this category - to compare effectiveness.
 
 
 ## Phase II Ideas:

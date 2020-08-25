@@ -5,6 +5,10 @@
 # 3. Return a series of movies that the app recommends based on the title inputted
 # 4. Option to input a different movie name
 
+# Aditional things to implement
+# * Ability to type movie titles in lower cases as well as upper case
+# * Ability to recommend actual movie title if title is typed wrong
+
 
 import pandas as pd
 import numpy as np
@@ -90,14 +94,32 @@ def read_df(movie_title):
 
 # # app loop
 
-movie_title = what_is_name_movie()
-movie_recommendation = read_df(movie_title)
+active = True
 
+print("")
+print("Welcome to the movie recommendation app!")
+print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-print(f"These are the movie we found that are similar to {movie_title}: ")
-print(movie_recommendation.to_string(index=False))
+while active:
+    movie_title = what_is_name_movie()
+    movie_recommendation = read_df(movie_title)
 
+    if len(movie_recommendation) != 50:
+        print("")
+        print(f"These are the movie we found that are similar to {movie_title}: ")
+        print(movie_recommendation.to_string(index=False))
 
+    else:
+        print("")
+        print(movie_recommendation)
 
+    print("")
+    print("")
+    print("")
 
-
+    another_round = input("Would you us to recommend based on a different movie? (y/n): ")
+    if another_round != "y":
+        print("----------------")
+        print("Thank you for using our movie recommender - come back any time!")
+        active = False
+    

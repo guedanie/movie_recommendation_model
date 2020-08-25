@@ -150,13 +150,13 @@ def simple_cluster(df, number_of_clusters):
 def complex_cluster(df, number_of_clusters):
     df["combined_data"] = df.genre + " " + df.director + " " + df.clean_lemmatized
     df = prepare.prep_readme_data(df, "combined_data")
-    tfidf = TfidfVectorizer()
-    tfidfs = tfidf.fit_transform(df.clean_lemmatized)
+    cv = CountVectorizer(ngram_range = (1,2))
+    cv = cv.fit_transform(df.clean_lemmatized)
 
     # Create an instance of KMeans to find seven clusters
     kmeans = KMeans(n_clusters=number_of_clusters, random_state=123)
     # Use fit_predict to cluster the dataset
-    predictions = kmeans.fit_predict(tfidfs)
+    predictions = kmeans.fit_predict(cv)
 
     df["cluster_description"] = predictions
     df["cluster_description"] = "cluster_" + df.cluster_description.astype(str)

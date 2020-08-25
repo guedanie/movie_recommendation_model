@@ -112,39 +112,66 @@ def preprocessing(df, data_representation, target_variable, ngram_range = (2,2))
 #   Clustering    #
 # --------------- #
 
-def simple_cluster(df, number_of_clusters):
-    df_num = df[["title", "avg_vote", "usa_gross_income", "year", "duration"]]
-    df_num = df_num.set_index("title")
+def simple_movie_recommender(df, test):
 
-    # First, we need to scale the data
-    minmax = MinMaxScaler()
-    scaled_df = minmax.fit_transform(df_num)
+    is_in_data = ''
+    for i in df['title']:
+        if test == i :
+            is_in_data = True
 
-    # Create an instance of KMeans 
-    kmeans = KMeans(n_clusters=number_of_clusters)
-    # Use fit_predict to cluster the dataset
-    predictions = kmeans.fit_predict(scaled_df)
+    if is_in_data == True:
+        index = df[df.title == test].index
+        
+        genre_type = df[df.title == test].genre.values
 
-    df["cluster"] = predictions
-    df["cluster"] = "cluster_" + df.cluster.astype(str)
+        cluster = df[df.title == test].cluster.values
 
-    return df
+        recommended_movies = df[(df.genre.str.contains(genre_type[0])) & (df.cluster.str.contains(cluster[0]))].sort_values(by="avg_vote", ascending=False)
+        
+        recommended_movies = recommended_movies[recommended_movies.index != index[0]]
 
-def complex_cluster(df, number_of_clusters):
-    df["combined_data"] = df.genre + " " + df.director + " " + df.clean_lemmatized
-    df = prepare.prep_readme_data(df, "combined_data")
-    tfidf = TfidfVectorizer()
-    tfidfs = tfidf.fit_transform(df.clean_lemmatized)
+        return recommended_movies[["title", "director", "year", "genre", "avg_vote", "usa_gross_income"]].head(25)
 
-    # Create an instance of KMeans to find seven clusters
-    kmeans = KMeans(n_clusters=number_of_clusters)
-    # Use fit_predict to cluster the dataset
-    predictions = kmeans.fit_predict(tfidfs)
+    else:
+        return "Movie Not in the Database or Not Spelled Correctly"
 
-    df["cluster_description"] = predictions
-    df["cluster_description"] = "cluster_" + df.cluster_description.astype(str)
+def complex_movie_recommendation(df, test):
+    is_in_data = ''
+    for i in df['title']:
+        if test == i :
+            is_in_data = True
 
-    return df
+    if is_in_data == True:
+        index = df[df.title == test].index
+
+        genre_type = df[df.title == test].genre.values
+
+        cluster = df[df.title == test].cluster.values
+
+        cluster_desc = df[df.title == test].cluster_description.values
+
+        recommended_movies = (
+            df[(df.genre.str.contains(genre_type[0])) 
+               & (df.cluster.str.contains(cluster[0]))
+               & (df.cluster_description.str.contains(cluster_desc[0]))]
+            .sort_values(by="avg_vote", ascending=False)
+        )
+
+        recommended_movies = recommended_movies[recommended_movies.index != index[0]]
+        
+        if len(recommended_movies) == 0:
+            recommended_movies = df[(df.genre.str.contains(genre_type[0])) & (df.cluster.str.contains(cluster[0]))].sort_values(by="avg_vote", ascending=False)
+        
+            recommended_movies = recommended_movies[recommended_movies.index != index[0]]
+            
+        if len(recommended_movies) == 0:
+            return "No Recommendations Found"
+
+        recommended_movies[["title", "director", "year", "genre", "avg_vote", "usa_gross_income"]].head(25)
+        return recommended_movies[["title", "director", "year", "genre", "avg_vote", "usa_gross_income"]].head(25)
+
+    else:
+        return "Movie Not in the Database or Not Spelled Correctly"
 
 
 
